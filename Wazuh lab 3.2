@@ -1,0 +1,37 @@
+Comprehensive guide to installing and configuring Wazuh SIEM tool.
+Firstly, on you wazuh (ubuntu) server, run the command "curl -sO https://packages.wazuh.com/4.3/wazuh-install.sh && sudo bash ./wazuh-install.sh -a -i"  
+or
+sudo wget https://packages.wazuh.com/4.3/wazuh-install.sh && sudo bash ./wazuh-install.sh -a -i   (if the first command doesn't work)
+
+After the installation, WAZUH will provide you with a username and password. (REMEMBER THOSE)
+After that, WAZUH should be running and are able to access it via chrome.  
+Type in the URL"https://172.16.200.10    
+Then it will prompt you with a log in page. 
+Type in the username and password it provided for you when installing WAZUH
+Then go to "Add agent" tab and fill in each step: 
+1. Redhat/CentoS
+2. CentOS 6 or higher (Note, it will work on rocky 8)
+3. x86_64
+4. 172.16.200.10
+5. default
+6. This will give you the syntax for a command that you can run on Web01 to install the agent
+7. Run the command on your web01 server
+The command should look something like this on the bottom of the page
+
+sudo WAZUH_MANAGER='172.16.200.10' WAZUH_AGENT_GROUP='default' yum install https://package.wazuh.com/4.x/yum/wazuh-agent-4.3.11-1.x86_64.rpm
+
+8. Use the systemctl commands provided by Wazuh to Start the Wazuh agent on web01
+Once that is installed on your WEB01 page type these commands:
+sudo systemctl daemon-reload
+sudo systemctl enable wazuh-agent
+sudo systemctl start wazuh-agent
+sudo systemctl status wazuh-agent  (make sure it shows successful when this command is run.)
+
+how refresh the page and web01-yourname should be shown on wazuh. 
+Now to test wazuh's security events, try sshing into 172.16.50.2 with and invalid user/password
+Once that is done, you should be able to see on wazuh that someone was trying to ssh into web01.
+
+THANKS
+
+Written by Amin Daoudi
+
