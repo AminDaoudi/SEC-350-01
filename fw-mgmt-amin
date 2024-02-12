@@ -1,0 +1,15 @@
+configure
+set protocols ruip interface eth0
+set protocols rip network '172.16.200.0/28
+commit
+save
+exit
+reboot
+delete interfaces ethernet eth0 hw-id
+delete interfaces ethernet eth1 hw-id
+set service ssh listen-address 0.0.0.0/0
+"hostname"
+set system host-name fw-mgmt-amin
+set interfaces ethernet eth0 description SEC-350-LAN
+set interfaces ethernet eth1 description SEC-350-MGMT
+
