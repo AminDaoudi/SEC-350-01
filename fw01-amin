@@ -1,5 +1,7 @@
 REMEBER COMMIT AND SAVE AND REMEBER TO SNAPSHOT VMS - Amin Daoudi
 
+(LAN-to-MGMT, MGMT-to-LAN)
+
 set firewall name LAN-to-MGMT default-action 'drop'
 set firewall name LAN-to-MGMT enable-default-log
 set firewall name LAN-to-MGMT rule 1 action 'accept'
@@ -33,21 +35,7 @@ set firewall name MGMT-to-LAN rule 20 action 'accept'
 set firewall name MGMT-to-LAN rule 20 description 'Allow all connections from MGMT to LAN'
 set firewall name MGMT-to-LAN rule 20 destination address '172.16.150.0/24'
 
-set interfaces ethernet eth0 address '172.16.150.3/24'
-set interfaces ethernet eth0 description 'SEC350-LAN'
-set interfaces ethernet eth1 address '172.16.200.2/28'
-set interfaces ethernet eth1 description 'SEC350-MGMT'
-
-set protocols rip interface eth0
-set protocols rip network '172.16.200.0/28'
-set protocols static route 0.0.0.0/0 next-hop 172.16.150.2
-
-set service dns forwarding allow-from '172.16.200.0/28'
-set service dns forwarding listen-address '172.16.200.2'
-set service ssh listen-address '0.0.0.0'
-
-set system host-name 'fw-mgmt-amin'
-set system name-server '172.16.150.2'
+(ZONE POLICIES)
 
 set zone-policy zone LAN from MGMT firewall name 'MGMT-to-LAN'
 set zone-policy zone LAN interface 'eth0'
